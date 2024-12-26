@@ -11,7 +11,7 @@ const usernames = [
   "Xaryu",
   "Payo",
   "slop3",
-  "bobross",
+  "BobRoss",
 ];
 
 const TwitchApp: React.FC = () => {
@@ -48,7 +48,7 @@ const TwitchApp: React.FC = () => {
   
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-200 text-black">
+      <div className="flex h-screen items-center justify-center bg-gray-600 text-black">
         Loading ..
       </div>
     );
@@ -62,7 +62,32 @@ const TwitchApp: React.FC = () => {
     );
   }
 
-  return <div>Twitch test</div>;
+  return (
+    <div className="min-h-screen bg-slate-950 text-white p-8">
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Status
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        {streams.map(({ username, stream }) => (
+          <a
+            key={username}
+            href={`https://www.twitch.tv/${username}`}
+            className="p-4 rounded-lg shadow-lg bg-gray-600 hover:bg-slate-900 transition"
+          >
+            <h2 className="text-xl font-bold">{username}</h2>
+            {stream ? (
+              <>
+                <p className="text-green-400">Online</p>
+                <p className="mt-2">{stream.channel.status}</p>
+              </>
+            ) : (
+              <p className="text-red-600">Offline</p>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default TwitchApp;

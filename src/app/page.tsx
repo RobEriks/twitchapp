@@ -25,7 +25,7 @@ const TwitchApp: React.FC = () => {
       try {
         const requests = usernames.map((username) =>
           axios.get(
-            `https://twitch-proxy.freecodecamp.rocks/twitch-api/streams/${username}`
+            `https://twitch-proxy.freecodecamp.rocks/helix/streams?user_login=${username}`
           )
         );
   
@@ -46,6 +46,21 @@ const TwitchApp: React.FC = () => {
     fetchStreams();
   }, []);
   
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-200 text-black">
+        Loading ..
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-red-500 text-white">
+        {error}
+      </div>
+    );
+  }
 
   return <div>Twitch test</div>;
 };
